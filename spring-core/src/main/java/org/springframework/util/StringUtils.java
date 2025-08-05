@@ -950,14 +950,15 @@ public abstract class StringUtils {
 			validateLocalePart(country);
 			return new Locale(language, country);
 		}
-		else if (tokens.length > 2) {
-			String language = tokens[0];
-			validateLocalePart(language);
-			String country = tokens[1];
-			validateLocalePart(country);
-			String variant = Arrays.stream(tokens).skip(2).collect(Collectors.joining(delimiter));
-			return new Locale(language, country, variant);
-		}
+                else if (tokens.length > 2) {
+                        String language = tokens[0];
+                        validateLocalePart(language);
+                        String country = tokens[1];
+                        validateLocalePart(country);
+                        String variant = Arrays.stream(tokens).skip(2).collect(Collectors.joining(delimiter));
+                        validateLocalePart(variant);
+                        return new Locale(language, country, variant);
+                }
 
 		throw new IllegalArgumentException("Invalid locale format: '" + localeString + "'");
 	}
