@@ -720,10 +720,16 @@ class StringUtilsTests {
 		assertThat(locale.getVariant()).as("Variant containing country code not extracted correctly").isEqualTo(variant);
 	}
 
-	@Test  // SPR-14718, SPR-7598
-	void parseJava7Variant() {
-		assertThat(StringUtils.parseLocaleString("sr__#LATN").toString()).isEqualTo("sr__#LATN");
-	}
+        @Test  // SPR-14718, SPR-7598
+        void parseJava7Variant() {
+                assertThat(StringUtils.parseLocaleString("sr__#LATN").toString()).isEqualTo("sr__#LATN");
+        }
+
+        @Test
+        void parseLocaleWithInvalidVariant() {
+                assertThatIllegalArgumentException().isThrownBy(() ->
+                                StringUtils.parseLocaleString("en_US_invalid:variant"));
+        }
 
 	@Test  // SPR-16651
 	void availableLocalesWithLocaleString() {
